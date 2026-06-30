@@ -1,0 +1,4 @@
+-r requirements.txt
+
+--extra-index-url https://blpapi.bloomberg.com/repository/releases/python/simple/
+blpapi>=3.20
