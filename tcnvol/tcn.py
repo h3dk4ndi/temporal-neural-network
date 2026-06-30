@@ -1,6 +1,8 @@
-import numpy as np 
-from tcnvol.layers import ResidualBlock, WeightNormConv1d, GELU
+import numpy as np
+
+from tcnvol.layers import ResidualBlock, WeightNormConv1d, GELU, _glorot
 from tcnvol.config import TCNConfig
+from tcnvol.rmt import matrix_expand
 
 
 # ─────────────────────────────────────────────────────────────────────

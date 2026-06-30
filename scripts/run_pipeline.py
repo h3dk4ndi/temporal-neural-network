@@ -34,7 +34,7 @@ from tcnvol.har_rv import (build_har_features, tune_threshold,
 # ─────────────────────────────────────────────────────────────────────
 # Settings
 # ─────────────────────────────────────────────────────────────────────
-USE_BLOOMBERG = False                              # True only on a Terminal machine
+USE_BLOOMBERG = True                              # True only on a Terminal machine
 DATA_PATH     = "data/bloomberg_raw_data.parquet"  # gitignored; place your parquet here
 TARGET_COL    = "PX_LAST XAU Curncy"
 WINDOW        = 20

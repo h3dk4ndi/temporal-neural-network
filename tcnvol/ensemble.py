@@ -1,7 +1,62 @@
-import numpy as np
-from tcnvol.trainer import Trainer
-from sklearn.metrics import roc_auc_score, average_precision_score, f1_score, accuracy_score, balanced_accuracy_score, precision_score, recall_score
+from __future__ import annotations
 
+import numpy as np
+import pandas as pd
+
+from sklearn.metrics import (
+    roc_auc_score,
+    average_precision_score,
+    f1_score,
+    accuracy_score,
+    balanced_accuracy_score,
+    precision_score,
+    recall_score,
+)
+
+from tcnvol.trainer import Trainer
+from tcnvol.config import TCNConfig
+
+
+def evaluate(y_true, p, threshold: float = 0.5) -> dict:
+    """
+    Evaluate probabilistic binary-classification predictions.
+
+    Parameters
+    ----------
+    y_true : array-like
+        True binary labels.
+    p : array-like
+        Predicted probabilities for class 1.
+    threshold : float
+        Probability threshold used to convert probabilities into hard labels.
+
+    Returns
+    -------
+    dict
+        Dictionary containing AUC, PR-AUC, F1, accuracy, balanced accuracy,
+        precision, and recall.
+    """
+    y_true = np.asarray(y_true).astype(int).reshape(-1)
+    p = np.asarray(p).reshape(-1)
+
+    y_hat = (p >= threshold).astype(int)
+
+    if len(np.unique(y_true)) < 2:
+        auc = np.nan
+        pr_auc = np.nan
+    else:
+        auc = roc_auc_score(y_true, p)
+        pr_auc = average_precision_score(y_true, p)
+
+    return {
+        "auc": auc,
+        "pr_auc": pr_auc,
+        "f1": f1_score(y_true, y_hat, zero_division=0),
+        "accuracy": accuracy_score(y_true, y_hat),
+        "bacc": balanced_accuracy_score(y_true, y_hat),
+        "precision": precision_score(y_true, y_hat, zero_division=0),
+        "recall": recall_score(y_true, y_hat, zero_division=0),
+    }
 
 # ─────────────────────────────────────────────────────────────────────
 # EnsembleTrainer
