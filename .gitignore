@@ -221,3 +221,31 @@ __marimo__/
 data/
 *.parquet
 results/
+
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*/__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Bloomberg / licensed market data
+data/*.parquet
+data/*.csv
+data/*.xlsx
+
+# Detailed derived time series
+results/predictions_test.csv
+results/*predictions*.csv
+
+# Figures generated from Bloomberg-derived data
+results/figures/*.png
+results/figures/*.jpg
+results/figures/*.jpeg
+results/figures/*.svg
+results/figures/*.pdf
